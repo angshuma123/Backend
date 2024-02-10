@@ -1,8 +1,22 @@
+const User=require("../models/User")
 const getAllUsers=(req,res)=>{
-res.send("Welcome to get user route")
+User.find({}).then((result)=>{
+    res.json(result);
+}).catch((err)=>{
+    res.json({"message":"Error fetching records"})
+})
 }
 const createAUser=(req,res)=>{
-    res.send("Welcome to post user route")
+    const newObj=new User({
+        firstName:"Raghu",
+        lastName:"Sharma",
+        email:"raghu@gmail.com"
+    });
+    newObj.save().then((result)=>{
+        res.json(result);
+    }).catch((err)=>{
+        res.json({"message":err});
+    })
 }
 module.exports={
     getAllUsers,createAUser
